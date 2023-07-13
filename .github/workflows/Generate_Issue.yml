@@ -1,22 +1,16 @@
-name: Label issues
+name: New Issue
 on:
   issues:
     types:
-      - reopened
       - opened
+  workflow_dispatch:
 jobs:
-  label_issues:
+  hello:
     runs-on: ubuntu-latest
-    permissions:
-      issues: write
     steps:
-      - uses: actions/github-script@v6
-        with:
-          script: |
-            github.rest.issues.addLabels({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              labels: ["triage"]
-            })
 
+      - name: Print Issue Content
+        run: |
+          echo "New Issue Content:"
+          echo "Title: ${{ github.event.issue.title }}"
+          echo "Body: ${{ github.event.issue.body }}"
